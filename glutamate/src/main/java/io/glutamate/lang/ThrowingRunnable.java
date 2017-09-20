@@ -8,7 +8,9 @@
  * Contributors:
  *     Jens Reimann - initial API and implementation
  *******************************************************************************/
-/**
- * Concurrency
- */
-package io.glutamate.concurrent;
+package io.glutamate.lang;
+
+@FunctionalInterface
+public interface ThrowingRunnable {
+    public void run() throws Exception;
+}

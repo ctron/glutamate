@@ -8,11 +8,14 @@
  * Contributors:
  *     Jens Reimann - initial API and implementation
  *******************************************************************************/
-package io.glutamate.concurrent;
+package io.glutamate.util.concurrent;
 
 import java.time.Duration;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 import org.eclipse.jdt.annotation.NonNullByDefault;
 import org.eclipse.jdt.annotation.Nullable;
@@ -22,6 +25,23 @@ import io.glutamate.time.Durations;
 @NonNullByDefault
 public final class Await {
     private Await() {
+    }
+
+    public static <T> T await(final CompletionStage<T> stage, final long milliseconds) {
+
+        final CompletableFuture<T> future = stage.toCompletableFuture();
+
+        try {
+
+            if (milliseconds > 0) {
+                return future.get(milliseconds, TimeUnit.MILLISECONDS);
+            } else {
+                return future.get();
+            }
+
+        } catch (final InterruptedException | ExecutionException | TimeoutException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public static <T> T await(final CompletionStage<T> stage, @Nullable final Duration duration) {

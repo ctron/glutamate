@@ -8,7 +8,9 @@
  * Contributors:
  *     Jens Reimann - initial API and implementation
  *******************************************************************************/
-/**
- * Glutamate for <code>java.time</code>
- */
-package io.glutamate.time;
+package io.glutamate.lang;
+
+@FunctionalInterface
+public interface ThrowingConsumer<T> {
+    public void consume(T t) throws Exception;
+}

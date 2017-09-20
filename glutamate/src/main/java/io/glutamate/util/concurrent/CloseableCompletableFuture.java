@@ -8,7 +8,7 @@
  * Contributors:
  *     Jens Reimann - initial API and implementation
  *******************************************************************************/
-package io.glutamate.concurrent;
+package io.glutamate.util.concurrent;
 
 import java.util.LinkedList;
 import java.util.Objects;

@@ -8,14 +8,12 @@
  * Contributors:
  *     Jens Reimann - initial API and implementation
  *******************************************************************************/
-package io.glutamate.concurrent;
+package io.glutamate.util.concurrent;
 
 import java.util.Objects;
 import java.util.concurrent.CompletionStage;
 
 import org.eclipse.jdt.annotation.NonNullByDefault;
-
-import io.glutamate.internal.concurrent.CloseableCompletionStageImpl;
 
 @NonNullByDefault
 public interface CloseableCompletionStage<T> extends CompletionStage<T>, AutoCloseable {
