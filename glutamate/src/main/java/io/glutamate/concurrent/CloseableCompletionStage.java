@@ -13,6 +13,11 @@ package io.glutamate.concurrent;
 import java.util.Objects;
 import java.util.concurrent.CompletionStage;
 
+import org.eclipse.jdt.annotation.NonNullByDefault;
+
+import io.glutamate.internal.concurrent.CloseableCompletionStageImpl;
+
+@NonNullByDefault
 public interface CloseableCompletionStage<T> extends CompletionStage<T>, AutoCloseable {
 
     public static <T> CloseableCompletionStage<T> of(final CompletionStage<T> stage, final AutoCloseable closeHandler) {

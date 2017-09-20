@@ -15,15 +15,19 @@ import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.atomic.AtomicReference;
 
+import org.eclipse.jdt.annotation.Nullable;
+
 public class CloseableCompletableFuture<T> extends CompletableFuture<T> implements CloseableCompletionStage<T> {
 
     private static class Entry {
+        @Nullable
         Entry next;
+        @Nullable
         Runnable runnable;
         boolean closed;
     }
 
-    private final AtomicReference<Entry> closing = new AtomicReference<>(null);
+    private final AtomicReference<Entry> closing = new AtomicReference<>();
 
     @Override
     public CloseableCompletableFuture<T> toCompletableFuture() {
@@ -38,7 +42,8 @@ public class CloseableCompletableFuture<T> extends CompletableFuture<T> implemen
 
         do {
             next.next = this.closing.get();
-            if (next.next != null && next.next.closed) {
+            final Entry nextNext = next.next;
+            if (nextNext != null && nextNext.closed) {
                 // handle right now
                 runnable.run();
                 return;
@@ -57,7 +62,10 @@ public class CloseableCompletableFuture<T> extends CompletableFuture<T> implemen
         while (current != null && !current.closed) {
 
             try {
-                current.runnable.run();
+                final Runnable runnable = current.runnable;
+                if (runnable != null) {
+                    runnable.run();
+                }
             } catch (final Throwable e) {
                 if (errors == null) {
                     errors = new LinkedList<>();

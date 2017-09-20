@@ -14,13 +14,17 @@ import java.time.Duration;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
 
+import org.eclipse.jdt.annotation.NonNullByDefault;
+import org.eclipse.jdt.annotation.Nullable;
+
 import io.glutamate.time.Durations;
 
+@NonNullByDefault
 public final class Await {
     private Await() {
     }
 
-    public static <T> T await(final CompletionStage<T> stage, final Duration duration) {
+    public static <T> T await(final CompletionStage<T> stage, @Nullable final Duration duration) {
 
         final CompletableFuture<T> future = stage.toCompletableFuture();
 

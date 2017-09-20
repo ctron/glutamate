@@ -8,7 +8,7 @@
  * Contributors:
  *     Jens Reimann - initial API and implementation
  *******************************************************************************/
-package io.glutamate.concurrent;
+package io.glutamate.internal.concurrent;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
@@ -18,7 +18,9 @@ import java.util.function.BiFunction;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
-final class CloseableCompletionStageImpl<T> implements CloseableCompletionStage<T> {
+import io.glutamate.concurrent.CloseableCompletionStage;
+
+public final class CloseableCompletionStageImpl<T> implements CloseableCompletionStage<T> {
 
     private final CompletionStage<T> stage;
     private final AutoCloseable closeHandler;
