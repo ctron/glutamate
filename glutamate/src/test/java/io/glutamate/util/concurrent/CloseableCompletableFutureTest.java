@@ -8,13 +8,15 @@
  * Contributors:
  *     Jens Reimann - initial API and implementation
  *******************************************************************************/
-package io.glutamate.concurrent;
+package io.glutamate.util.concurrent;
 
 import static org.junit.Assert.assertEquals;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.junit.Test;
+
+import io.glutamate.util.concurrent.CloseableCompletableFuture;
 
 public class CloseableCompletableFutureTest {
 

@@ -8,7 +8,7 @@
  * Contributors:
  *     Jens Reimann - initial API and implementation
  *******************************************************************************/
-package io.glutamate.concurrent;
+package io.glutamate.util.concurrent;
 
 import static java.util.concurrent.CompletableFuture.completedFuture;
 
@@ -17,6 +17,8 @@ import java.util.concurrent.CompletableFuture;
 
 import org.junit.Assert;
 import org.junit.Test;
+
+import io.glutamate.util.concurrent.Await;
 
 public class AwaitTest {
 

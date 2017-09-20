@@ -9,6 +9,6 @@
  *     Jens Reimann - initial API and implementation
  *******************************************************************************/
 /**
- * Concurrency
+ * Glutamate for <code>java.util.concurrent</code>
  */
-package io.glutamate.concurrent;
+package io.glutamate.util.concurrent;
