@@ -170,7 +170,7 @@
                 <configuration>
                     <autoVersionSubmodules>true</autoVersionSubmodules>
                     <releaseProfiles>release</releaseProfiles>
-                    <tagNameFormat></tagNameFormat>
+                    <tagNameFormat>glutamate-@{project.version}</tagNameFormat>
                 </configuration>
             </plugin>
 
