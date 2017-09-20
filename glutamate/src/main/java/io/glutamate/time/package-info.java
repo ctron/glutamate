@@ -9,6 +9,6 @@
  *     Jens Reimann - initial API and implementation
  *******************************************************************************/
 /**
- * Time
+ * Glutamate for <code>java.time</code>
  */
 package io.glutamate.time;
