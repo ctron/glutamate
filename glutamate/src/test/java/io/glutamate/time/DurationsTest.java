@@ -15,9 +15,11 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.atomic.AtomicReference;
 
+import org.eclipse.jdt.annotation.NonNullByDefault;
 import org.junit.Assert;
 import org.junit.Test;
 
+@NonNullByDefault
 public class DurationsTest {
     @Test
     public void testMilliseconds() {

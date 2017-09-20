@@ -41,23 +41,51 @@ public final class Durations {
         consumeMilliseconds(duration, Thread::sleep);
     }
 
+    /**
+     * Converts the Duration to milliseconds, with a sane maximum
+     *
+     * <p>
+     * Actually calls {@link Duration#toMillis()}, but returns
+     * {@link Long#MIN_VALUE} or {@link Long#MAX_VALUE} in case an
+     * ArithmeticException is thrown by the conversion.
+     * </p>
+     *
+     * @param duration
+     *            the duration to convert, not null
+     * @return the number of milliseconds or {@link Long#MIN_VALUE},
+     *         {@link Long#MAX_VALUE}
+     */
     public static long toMillis(final Duration duration) {
         Objects.requireNonNull(duration);
 
         try {
             return duration.toMillis();
         } catch (final ArithmeticException e) {
-            return Long.MAX_VALUE;
+            return duration.isNegative() ? Long.MIN_VALUE : Long.MAX_VALUE;
         }
     }
 
+    /**
+     * Converts the Duration to nanoseconds, with a sane maximum
+     *
+     * <p>
+     * Actually calls {@link Duration#toNanos()}, but returns {@link Long#MIN_VALUE}
+     * or {@link Long#MAX_VALUE} in case an ArithmeticException is thrown by the
+     * conversion.
+     * </p>
+     *
+     * @param duration
+     *            the duration to convert, not null
+     * @return the number of milliseconds or {@link Long#MIN_VALUE},
+     *         {@link Long#MAX_VALUE}
+     */
     public static long toNanos(final Duration duration) {
         Objects.requireNonNull(duration);
 
         try {
             return duration.toNanos();
         } catch (final ArithmeticException e) {
-            return Long.MAX_VALUE;
+            return duration.isNegative() ? Long.MIN_VALUE : Long.MAX_VALUE;
         }
     }
 
