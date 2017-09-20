@@ -15,8 +15,6 @@ import java.util.concurrent.CompletionStage;
 
 import org.eclipse.jdt.annotation.NonNullByDefault;
 
-import io.glutamate.internal.util.concurrent.CloseableCompletionStageImpl;
-
 @NonNullByDefault
 public interface CloseableCompletionStage<T> extends CompletionStage<T>, AutoCloseable {
 
