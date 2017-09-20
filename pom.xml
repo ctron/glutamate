@@ -170,6 +170,8 @@
                 <configuration>
                     <autoVersionSubmodules>true</autoVersionSubmodules>
                     <releaseProfiles>release</releaseProfiles>
+                    <preparationGoals>clean install</preparationGoals>
+                    <goals>deploy</goals>
                     <tagNameFormat>glutamate-@{project.version}</tagNameFormat>
                 </configuration>
             </plugin>
