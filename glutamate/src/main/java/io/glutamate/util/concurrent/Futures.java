@@ -27,6 +27,8 @@ public final class Futures {
      *
      * @param value
      *            The value of success
+     * @param <T>
+     *            the future type
      * @return A new, completed, succeeded future
      */
     public static <T> CompletableFuture<T> succeeded(final T value) {
@@ -42,6 +44,8 @@ public final class Futures {
      *
      * @param error
      *            The error
+     * @param <T>
+     *            the future type
      * @return A new, completed, failed future instance
      */
     public static <T> CompletableFuture<T> failed(final Throwable error) {
