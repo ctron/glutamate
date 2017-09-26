@@ -5,7 +5,7 @@
 
     <groupId>io.glutamate</groupId>
     <artifactId>glutamate-parent</artifactId>
-    <version>0.0.2</version>
+    <version>0.0.3</version>
     <packaging>pom</packaging>
 
     <name>Glutamate :: Parent</name>
@@ -37,7 +37,7 @@
         <url>https://github.com/ctron/glutamate</url>
         <connection>scm:git:git://github.com/ctron/glutamate.git</connection>
         <developerConnection>scm:git:git@github.com:ctron/glutamate.git</developerConnection>
-        <tag>glutamate-0.0.2</tag>
+        <tag>glutamate-0.0.3</tag>
     </scm>
 
     <issueManagement>
@@ -206,6 +206,7 @@
                         <link>http://docs.oracle.com/javase/8/docs/api</link>
                     </links>
                     <excludePackageNames>*.internal.*</excludePackageNames>
+                    <doctitle>Glutamate ${project.version} API</doctitle>
                     <name>Glutamate</name>
                     <windowtitle>Glutamate ${project.version} API</windowtitle>
                 </configuration>

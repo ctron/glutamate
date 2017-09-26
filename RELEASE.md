@@ -24,5 +24,6 @@ Head over to http://oss.sonatype.org/ and do the release
     git checkout <tag>
     # prepare and maybe modify site.xml
     mvn site:site site:stage
-    git checkout master
+    # upload
+    git checkout develop
 
