@@ -10,6 +10,8 @@
  *******************************************************************************/
 package io.glutamate.lang;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.Objects;
 import java.util.concurrent.Callable;
 import java.util.function.Consumer;
@@ -84,5 +86,25 @@ public final class Exceptions {
         // return class name
 
         return error.getClass().getName();
+    }
+
+    /**
+     * Formats the Throwable to a string.
+     * <p>
+     * Returns a string like {@link Exception#printStackTrace()} would print out.
+     *
+     * @param error
+     *            the error to format
+     * @return the formatted exception, {@code null} if the input was {@code null}
+     */
+    public static String toString(final Throwable error) {
+        if (error == null) {
+            return null;
+        }
+
+        final StringWriter sw = new StringWriter();
+        error.printStackTrace(new PrintWriter(sw));
+
+        return sw.toString();
     }
 }
