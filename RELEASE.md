@@ -19,6 +19,12 @@ Ensure that `.m2/settings.xml` contains the GitHub credentials:
 
 Head over to http://oss.sonatype.org/ and do the release
 
+## Update the master branch
+
+    git checkout master
+    git merge <tag>
+    git checkout develop
+
 ## Upload the documentation
 
     git checkout <tag>
