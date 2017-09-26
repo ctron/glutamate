@@ -13,6 +13,9 @@ package io.glutamate.io;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Objects;
+
+import org.eclipse.jdt.annotation.NonNull;
 
 /**
  * Help with closing streams.
@@ -23,7 +26,7 @@ public final class Close {
 
         private final OutputStream stream;
 
-        private ShieldedOutputStream(final OutputStream stream) {
+        private ShieldedOutputStream(@NonNull final OutputStream stream) {
             this.stream = stream;
         }
 
@@ -61,7 +64,7 @@ public final class Close {
 
         private final InputStream stream;
 
-        private ShieldedInputStream(final InputStream stream) {
+        private ShieldedInputStream(@NonNull final InputStream stream) {
             this.stream = stream;
         }
 
@@ -126,7 +129,8 @@ public final class Close {
      * @return A new stream which forwards calls to the input stream, except for the
      *         {@link AutoCloseable#close()} call
      */
-    public static OutputStream shield(final OutputStream stream) {
+    public static OutputStream shield(@NonNull final OutputStream stream) {
+        Objects.requireNonNull(stream);
         return new ShieldedOutputStream(stream);
     }
 
@@ -138,7 +142,8 @@ public final class Close {
      * @return A new stream which forwards calls to the input stream, except for the
      *         {@link AutoCloseable#close()} call
      */
-    public static InputStream shield(final InputStream stream) {
+    public static InputStream shield(@NonNull final InputStream stream) {
+        Objects.requireNonNull(stream);
         return new ShieldedInputStream(stream);
     }
 }
