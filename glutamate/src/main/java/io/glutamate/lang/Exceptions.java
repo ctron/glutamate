@@ -43,4 +43,46 @@ public final class Exceptions {
             throw new RuntimeException(e);
         }
     }
+
+    public static Throwable getCause(Throwable error) {
+        if (error == null) {
+            return null;
+        }
+
+        while (error.getCause() != null && error.getCause() != error) {
+            error = error.getCause();
+        }
+
+        return error;
+    }
+
+    public static String getCauseMessage(final Throwable error) {
+        return getMessage(getCause(error));
+    }
+
+    public static String getMessage(final Throwable error) {
+        if (error == null) {
+            return null;
+        }
+
+        String result;
+
+        // try localized message
+
+        result = error.getLocalizedMessage();
+        if (result != null) {
+            return result;
+        }
+
+        // try message
+
+        result = error.getMessage();
+        if (result != null) {
+            return result;
+        }
+
+        // return class name
+
+        return error.getClass().getName();
+    }
 }
