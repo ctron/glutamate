@@ -15,6 +15,7 @@ import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.atomic.AtomicReference;
 
+import org.eclipse.jdt.annotation.NonNull;
 import org.eclipse.jdt.annotation.Nullable;
 
 public class CloseableCompletableFuture<T> extends CompletableFuture<T> implements CloseableCompletionStage<T> {
@@ -54,11 +55,11 @@ public class CloseableCompletableFuture<T> extends CompletableFuture<T> implemen
 
     @Override
     public void close() throws Exception {
-        final Entry entry = new Entry();
-        entry.closed = true;
+
+        Entry current = markClosed();
 
         LinkedList<Throwable> errors = null;
-        Entry current = this.closing.getAndSet(entry);
+
         while (current != null && !current.closed) {
 
             try {
@@ -88,6 +89,46 @@ public class CloseableCompletableFuture<T> extends CompletableFuture<T> implemen
             errors.forEach(first::addSuppressed);
             throw first;
         }
+    }
+
+    private Entry markClosed() {
+        final Entry entry = new Entry();
+        entry.closed = true;
+        final Entry current = this.closing.getAndSet(entry);
+        return current;
+    }
+
+    /**
+     * Create a new failed, completed, closed future.
+     *
+     * @param error
+     *            The error to fail with
+     * @return A new
+     */
+    public static <T> @NonNull CloseableCompletableFuture<T> failed(@NonNull final Throwable error) {
+        Objects.requireNonNull(error);
+
+        final CloseableCompletableFuture<T> result = new CloseableCompletableFuture<>();
+        result.completeExceptionally(error);
+        result.markClosed();
+
+        return result;
+    }
+
+    /**
+     * Create a new succeeded, completed, closed future.
+     *
+     * @param error
+     *            The error to fail with
+     * @return A new
+     */
+    public static <@Nullable T> @NonNull CloseableCompletableFuture<T> succeeded(final T value) {
+
+        final CloseableCompletableFuture<T> result = new CloseableCompletableFuture<>();
+        result.complete(value);
+        result.markClosed();
+
+        return result;
     }
 
 }
