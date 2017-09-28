@@ -103,7 +103,7 @@ public class CloseableCompletableFuture<T> extends CompletableFuture<T> implemen
      *
      * @param error
      *            The error to fail with
-     * @return A new
+     * @return A new instance
      */
     public static <T> @NonNull CloseableCompletableFuture<T> failed(@NonNull final Throwable error) {
         Objects.requireNonNull(error);
@@ -118,9 +118,9 @@ public class CloseableCompletableFuture<T> extends CompletableFuture<T> implemen
     /**
      * Create a new succeeded, completed, closed future.
      *
-     * @param error
-     *            The error to fail with
-     * @return A new
+     * @param value
+     *            The value to succeed with
+     * @return A new instance
      */
     public static <@Nullable T> @NonNull CloseableCompletableFuture<T> succeeded(final T value) {
 
