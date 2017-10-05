@@ -1,0 +1,105 @@
+/*******************************************************************************
+ * Copyright (c) 2017 Red Hat Inc and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *     Jens Reimann - initial API and implementation
+ *******************************************************************************/
+package io.glutamate.lang;
+
+import java.lang.annotation.Annotation;
+import java.util.Objects;
+import java.util.Optional;
+
+import org.eclipse.jdt.annotation.NonNull;
+
+public final class Annotations {
+    private Annotations() {
+    }
+
+    public static enum ScanMode {
+        DEPTH, BREADTH;
+    }
+
+    public static <A extends Annotation> Optional<A> scanFor(
+            @NonNull final Class<A> annotationClazz,
+            @NonNull final Class<?> clazz,
+            @NonNull final ScanMode mode) {
+
+        Objects.requireNonNull(mode);
+
+        if (mode == ScanMode.DEPTH) {
+            return scanForDepthFirst(annotationClazz, clazz);
+        } else {
+            return scanForBreadthFirst(annotationClazz, clazz);
+        }
+    }
+
+    public static <A extends Annotation> Optional<A> scanForDepthFirst(
+            @NonNull final Class<A> annotationClazz,
+            @NonNull final Class<?> clazz) {
+        Objects.requireNonNull(clazz);
+        Objects.requireNonNull(annotationClazz);
+
+        final A annotation = clazz.getAnnotation(annotationClazz);
+        if (annotation != null) {
+            return Optional.of(annotation);
+        } else {
+
+            final Class<?> superclazz = clazz.getSuperclass();
+            if (superclazz != null) {
+                final Optional<A> result = scanForDepthFirst(annotationClazz, superclazz);
+                if (result.isPresent()) {
+                    return result;
+                }
+            }
+
+            for (final Class<?> iface : clazz.getInterfaces()) {
+                if (iface == null) {
+                    continue;
+                }
+
+                final Optional<A> result = scanForDepthFirst(annotationClazz, iface);
+                if (result.isPresent()) {
+                    return result;
+                }
+            }
+
+        }
+
+        return Optional.empty();
+    }
+
+    public static <A extends Annotation> Optional<A> scanForBreadthFirst(
+            @NonNull final Class<A> annotationClazz,
+            @NonNull final Class<?> clazz) {
+        Objects.requireNonNull(clazz);
+        Objects.requireNonNull(annotationClazz);
+
+        final A annotation = clazz.getAnnotation(annotationClazz);
+        if (annotation != null) {
+            return Optional.of(annotation);
+        } else {
+            for (final Class<?> iface : clazz.getInterfaces()) {
+                if (iface == null) {
+                    continue;
+                }
+
+                final Optional<A> result = scanForBreadthFirst(annotationClazz, iface);
+                if (result.isPresent()) {
+                    return result;
+                }
+            }
+
+            final Class<?> superclazz = clazz.getSuperclass();
+            if (superclazz != null) {
+                return scanForBreadthFirst(annotationClazz, superclazz);
+            }
+        }
+
+        return Optional.empty();
+    }
+}
