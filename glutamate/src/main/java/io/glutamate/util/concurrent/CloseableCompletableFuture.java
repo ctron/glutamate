@@ -18,6 +18,12 @@ import java.util.concurrent.atomic.AtomicReference;
 import org.eclipse.jdt.annotation.NonNull;
 import org.eclipse.jdt.annotation.Nullable;
 
+/**
+ * A closable version of the {@link CompletableFuture}.
+ *
+ * @param <T>
+ *            the type of the result
+ */
 public class CloseableCompletableFuture<T> extends CompletableFuture<T> implements CloseableCompletionStage<T> {
 
     private static class Entry {
@@ -35,6 +41,12 @@ public class CloseableCompletableFuture<T> extends CompletableFuture<T> implemen
         return this;
     }
 
+    /**
+     * Run code when the future gets closed.
+     *
+     * @param runnable
+     *            The code to run
+     */
     public void whenClosed(final Runnable runnable) {
         Objects.requireNonNull(runnable);
 
@@ -103,6 +115,8 @@ public class CloseableCompletableFuture<T> extends CompletableFuture<T> implemen
      *
      * @param error
      *            The error to fail with
+     * @param <T>
+     *            the result type
      * @return A new instance
      */
     public static <T> @NonNull CloseableCompletableFuture<T> failed(@NonNull final Throwable error) {
@@ -120,6 +134,8 @@ public class CloseableCompletableFuture<T> extends CompletableFuture<T> implemen
      *
      * @param value
      *            The value to succeed with
+     * @param <T>
+     *            the result type
      * @return A new instance
      */
     public static <@Nullable T> @NonNull CloseableCompletableFuture<T> succeeded(final T value) {
