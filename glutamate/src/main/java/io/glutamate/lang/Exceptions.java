@@ -10,21 +10,25 @@
  *******************************************************************************/
 package io.glutamate.lang;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.Objects;
 import java.util.concurrent.Callable;
 import java.util.function.Consumer;
+
+import org.eclipse.jdt.annotation.NonNull;
 
 public final class Exceptions {
     private Exceptions() {
     }
 
-    public static <T> Consumer<T> ignore(final ThrowingConsumer<T> consumer) {
+    public static <T> Consumer<T> ignore(@NonNull final ThrowingConsumer<T> consumer) {
         Objects.requireNonNull(consumer);
 
         return (value) -> ignore(() -> consumer.consume(value));
     }
 
-    public static <T> T ignore(final Callable<T> callable) {
+    public static <T> T ignore(@NonNull final Callable<T> callable) {
         try {
             return callable.call();
         } catch (final RuntimeException e) {
@@ -34,7 +38,7 @@ public final class Exceptions {
         }
     }
 
-    public static void ignore(final ThrowingRunnable runnable) {
+    public static void ignore(@NonNull final ThrowingRunnable runnable) {
         try {
             runnable.run();
         } catch (final RuntimeException e) {
@@ -44,6 +48,14 @@ public final class Exceptions {
         }
     }
 
+    /**
+     * Gets the root cause of the error.
+     *
+     * @param error
+     *            to extract the root cause from
+     * @return the root cause, or the exception itself if it doesn't have a root
+     *         cause, returns {@code null} only when the input was {@code null}
+     */
     public static Throwable getCause(Throwable error) {
         if (error == null) {
             return null;
@@ -56,10 +68,30 @@ public final class Exceptions {
         return error;
     }
 
+    /**
+     * Gets the message of the root cause.
+     *
+     * Effectively a chained call of {@link #getCause(Throwable)} and
+     * {@link #getMessage(Throwable)}
+     *
+     * @param error
+     *            The error to inspect
+     * @return The message of the root cause, returns {@code null} only when the
+     *         input was {@code null}
+     */
+
     public static String getCauseMessage(final Throwable error) {
         return getMessage(getCause(error));
     }
 
+    /**
+     * Get the message of an exception.
+     *
+     * @param error
+     *            The error to inspect
+     * @return The message or alternatively the class name, returns {@code null}
+     *         only when the input was {@code null}
+     */
     public static String getMessage(final Throwable error) {
         if (error == null) {
             return null;
@@ -84,5 +116,25 @@ public final class Exceptions {
         // return class name
 
         return error.getClass().getName();
+    }
+
+    /**
+     * Formats the Throwable to a string.
+     * <p>
+     * Returns a string like {@link Exception#printStackTrace()} would print out.
+     *
+     * @param error
+     *            the error to format
+     * @return the formatted exception, {@code null} if the input was {@code null}
+     */
+    public static String toString(final Throwable error) {
+        if (error == null) {
+            return null;
+        }
+
+        final StringWriter sw = new StringWriter();
+        error.printStackTrace(new PrintWriter(sw));
+
+        return sw.toString();
     }
 }

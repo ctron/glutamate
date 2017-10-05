@@ -5,7 +5,7 @@
 
     <groupId>io.glutamate</groupId>
     <artifactId>glutamate-parent</artifactId>
-    <version>0.0.3</version>
+    <version>0.0.4</version>
     <packaging>pom</packaging>
 
     <name>Glutamate :: Parent</name>
@@ -28,8 +28,6 @@
             <name>Jens Reimann</name>
             <email>ctron@dentrassi.de</email>
             <url>https://dentrassi.de</url>
-            <organization>Red Hat Inc</organization>
-            <organizationUrl>http://redhat.com</organizationUrl>
         </developer>
     </developers>
 
@@ -37,7 +35,7 @@
         <url>https://github.com/ctron/glutamate</url>
         <connection>scm:git:git://github.com/ctron/glutamate.git</connection>
         <developerConnection>scm:git:git@github.com:ctron/glutamate.git</developerConnection>
-        <tag>glutamate-0.0.3</tag>
+        <tag>glutamate-0.0.4</tag>
     </scm>
 
     <issueManagement>
