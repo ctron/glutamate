@@ -5,7 +5,7 @@
 
     <groupId>io.glutamate</groupId>
     <artifactId>glutamate-parent</artifactId>
-    <version>0.0.4-SNAPSHOT</version>
+    <version>0.0.4</version>
     <packaging>pom</packaging>
 
     <name>Glutamate :: Parent</name>
@@ -35,7 +35,7 @@
         <url>https://github.com/ctron/glutamate</url>
         <connection>scm:git:git://github.com/ctron/glutamate.git</connection>
         <developerConnection>scm:git:git@github.com:ctron/glutamate.git</developerConnection>
-        <tag>HEAD</tag>
+        <tag>glutamate-0.0.4</tag>
     </scm>
 
     <issueManagement>
