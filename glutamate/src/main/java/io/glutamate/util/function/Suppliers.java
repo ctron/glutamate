@@ -19,6 +19,9 @@ import java.util.function.Supplier;
 import org.eclipse.jdt.annotation.NonNullByDefault;
 import org.eclipse.jdt.annotation.Nullable;
 
+/**
+ * Helpers to work with {@link Supplier}s.
+ */
 @NonNullByDefault
 public final class Suppliers {
     private Suppliers() {

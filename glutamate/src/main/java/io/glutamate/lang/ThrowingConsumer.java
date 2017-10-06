@@ -10,7 +10,21 @@
  *******************************************************************************/
 package io.glutamate.lang;
 
+/**
+ * A consumer throwing an Exception.
+ *
+ * @param <T>
+ *            The value type of the consumer
+ */
 @FunctionalInterface
 public interface ThrowingConsumer<T> {
+    /**
+     * Consume the value, yummy!
+     *
+     * @param t
+     *            the value to consume
+     * @throws Exception
+     *             if anything goes wrong
+     */
     public void consume(T t) throws Exception;
 }

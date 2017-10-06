@@ -10,7 +10,16 @@
  *******************************************************************************/
 package io.glutamate.lang;
 
+/**
+ * A runnable throwing an exception.
+ */
 @FunctionalInterface
 public interface ThrowingRunnable {
+    /**
+     * Run boy run
+     * 
+     * @throws Exception
+     *             if anything goes wrong
+     */
     public void run() throws Exception;
 }
