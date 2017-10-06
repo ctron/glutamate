@@ -14,8 +14,12 @@ import java.util.concurrent.CompletableFuture;
 
 import org.eclipse.jdt.annotation.NonNullByDefault;
 
+/**
+ * Helpers for working with all kind of "futures".
+ */
 @NonNullByDefault
 public final class Futures {
+
     private Futures() {
     }
 
