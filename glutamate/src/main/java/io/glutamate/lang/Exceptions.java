@@ -18,17 +18,20 @@ import java.util.function.Consumer;
 
 import org.eclipse.jdt.annotation.NonNull;
 
+/**
+ * Helper for working with exceptions
+ */
 public final class Exceptions {
     private Exceptions() {
     }
 
-    public static <T> Consumer<T> ignore(@NonNull final ThrowingConsumer<T> consumer) {
+    public static <T> Consumer<T> wrap(@NonNull final ThrowingConsumer<T> consumer) {
         Objects.requireNonNull(consumer);
 
-        return (value) -> ignore(() -> consumer.consume(value));
+        return (value) -> wrap(() -> consumer.consume(value));
     }
 
-    public static <T> T ignore(@NonNull final Callable<T> callable) {
+    public static <T> T wrap(@NonNull final Callable<T> callable) {
         try {
             return callable.call();
         } catch (final RuntimeException e) {
@@ -38,7 +41,7 @@ public final class Exceptions {
         }
     }
 
-    public static void ignore(@NonNull final ThrowingRunnable runnable) {
+    public static void wrap(@NonNull final ThrowingRunnable runnable) {
         try {
             runnable.run();
         } catch (final RuntimeException e) {

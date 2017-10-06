@@ -10,7 +10,7 @@
  *******************************************************************************/
 package io.glutamate.lang;
 
-import static io.glutamate.lang.Exceptions.ignore;
+import static io.glutamate.lang.Exceptions.wrap;
 import static org.hamcrest.core.IsInstanceOf.instanceOf;
 
 import java.io.IOException;
@@ -20,6 +20,9 @@ import java.util.Optional;
 import org.junit.Assert;
 import org.junit.Test;
 
+/**
+ * Unit tests for {@link Exceptions}
+ */
 public class ExceptionsTest {
 
     public static void doStuff() throws Exception {
@@ -32,7 +35,7 @@ public class ExceptionsTest {
 
     @Test(expected = RuntimeException.class)
     public void test1() {
-        Exceptions.ignore(() -> {
+        Exceptions.wrap(() -> {
             throw new Exception();
         });
     }
@@ -40,7 +43,7 @@ public class ExceptionsTest {
     @SuppressWarnings("unused")
     @Test(expected = RuntimeException.class)
     public void test2() {
-        Exceptions.ignore(() -> {
+        Exceptions.wrap(() -> {
             if (true) {
                 throw new Exception();
             }
@@ -50,18 +53,18 @@ public class ExceptionsTest {
 
     @Test(expected = RuntimeException.class)
     public void test3() {
-        Exceptions.ignore(ExceptionsTest::doStuff);
+        Exceptions.wrap(ExceptionsTest::doStuff);
     }
 
     @Test(expected = RuntimeException.class)
     public void test4() {
-        Optional.of("Foo").ifPresent(ignore(ExceptionsTest::doStringStuff));
+        Optional.of("Foo").ifPresent(wrap(ExceptionsTest::doStringStuff));
     }
 
     @Test
     public void testCause1() {
         try {
-            Exceptions.ignore(() -> {
+            Exceptions.wrap(() -> {
                 throw new IOException("FooBar");
             });
         } catch (final Throwable e) {
@@ -86,7 +89,7 @@ public class ExceptionsTest {
     @Test
     public void testCauseNull2() {
         try {
-            Exceptions.ignore(() -> {
+            Exceptions.wrap(() -> {
                 Objects.requireNonNull(null); // expect NPE
             });
         } catch (final Throwable e) {
