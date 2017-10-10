@@ -16,14 +16,39 @@ import java.util.Optional;
 
 import org.eclipse.jdt.annotation.NonNull;
 
+/**
+ * Helper for working with {@link Annotation}s. *
+ */
 public final class Annotations {
     private Annotations() {
     }
 
+    /**
+     * The scan mode.
+     */
     public static enum ScanMode {
-        DEPTH, BREADTH;
+        /**
+         * Scan super-classes before interfaces.
+         */
+        DEPTH,
+        /**
+         * Scan interfaces before super-classes.
+         */
+        BREADTH;
     }
 
+    /**
+     * Scan for an annotation in the full inheritance of a class.
+     *
+     * @param annotationClazz
+     *            The annotation to scan for
+     * @param clazz
+     *            The class to scan on
+     * @param mode
+     *            The scan mode
+     * @return The annotation, if found, never returns {@code null}, but may return
+     *         {@link Optional#empty()}.
+     */
     public static <A extends Annotation> Optional<A> scanFor(
             @NonNull final Class<A> annotationClazz,
             @NonNull final Class<?> clazz,
@@ -38,6 +63,17 @@ public final class Annotations {
         }
     }
 
+    /**
+     * Scan for an annotation with {@link ScanMode#DEPTH}.
+     *
+     * @param annotationClazz
+     *            The annotation to scan for
+     * @param clazz
+     *            The class to scan on
+     * @return The annotation, if found, never returns {@code null}, but may return
+     *         {@link Optional#empty()}.
+     *
+     */
     public static <A extends Annotation> Optional<A> scanForDepthFirst(
             @NonNull final Class<A> annotationClazz,
             @NonNull final Class<?> clazz) {
@@ -73,6 +109,17 @@ public final class Annotations {
         return Optional.empty();
     }
 
+    /**
+     * Scan for an annotation with {@link ScanMode#BREADTH}.
+     *
+     * @param annotationClazz
+     *            The annotation to scan for
+     * @param clazz
+     *            The class to scan on
+     * @return The annotation, if found, never returns {@code null}, but may return
+     *         {@link Optional#empty()}.
+     *
+     */
     public static <A extends Annotation> Optional<A> scanForBreadthFirst(
             @NonNull final Class<A> annotationClazz,
             @NonNull final Class<?> clazz) {

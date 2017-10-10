@@ -8,18 +8,7 @@
  * Contributors:
  *     Jens Reimann - initial API and implementation
  *******************************************************************************/
-package io.glutamate.lang;
-
 /**
- * A runnable throwing an exception.
+ * Glutamate for <code>java.util</code>
  */
-@FunctionalInterface
-public interface ThrowingRunnable {
-    /**
-     * Run boy run
-     * 
-     * @throws Exception
-     *             if anything goes wrong
-     */
-    public void run() throws Exception;
-}
+package io.glutamate.util;

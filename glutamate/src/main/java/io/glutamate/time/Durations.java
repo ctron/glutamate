@@ -16,6 +16,9 @@ import java.util.concurrent.TimeUnit;
 
 import org.eclipse.jdt.annotation.NonNullByDefault;
 
+/**
+ * Helper for working with {@link Duration}s.
+ */
 @NonNullByDefault
 public final class Durations {
 

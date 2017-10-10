@@ -10,7 +10,33 @@
  *******************************************************************************/
 package io.glutamate.lang;
 
+import org.eclipse.jdt.annotation.NonNull;
+
+/**
+ * A consumer throwing an Exception.
+ *
+ * @param <T>
+ *            The value type of the consumer
+ */
 @FunctionalInterface
 public interface ThrowingConsumer<T> {
+    /**
+     * Consume the value, yummy!
+     *
+     * @param t
+     *            the value to consume
+     * @throws Exception
+     *             if anything goes wrong
+     */
     public void consume(T t) throws Exception;
+
+    /**
+     * Get a no-op consumer.
+     *
+     * @return A no-op consumer
+     */
+    public static <T> @NonNull ThrowingConsumer<T> empty() {
+        return (x) -> {
+        };
+    };
 }

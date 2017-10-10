@@ -18,17 +18,43 @@ import java.util.function.Consumer;
 
 import org.eclipse.jdt.annotation.NonNull;
 
+/**
+ * Helper for working with exceptions
+ */
 public final class Exceptions {
     private Exceptions() {
     }
 
-    public static <T> Consumer<T> ignore(@NonNull final ThrowingConsumer<T> consumer) {
+    /**
+     * Create a consumer which will re-throw exceptions as
+     * {@link RuntimeException}s.
+     * <p>
+     * This method will catch all {@link Exception}s and re-throw
+     * {@link RuntimeException}s right away. All others are wrapped in
+     * {@link RuntimeException}s with the original exception as the cause.
+     *
+     * @param consumer
+     *            The consumer which may throw exceptions
+     * @return a consumer only throwing {@link RuntimeException}s
+     */
+    public static <T> Consumer<T> wrap(@NonNull final ThrowingConsumer<T> consumer) {
         Objects.requireNonNull(consumer);
 
-        return (value) -> ignore(() -> consumer.consume(value));
+        return (value) -> wrap(() -> consumer.consume(value));
     }
 
-    public static <T> T ignore(@NonNull final Callable<T> callable) {
+    /**
+     * Wrap thrown exceptions into a {@link RuntimeException}.
+     * <p>
+     * This method will catch all {@link Exception}s and re-throw
+     * {@link RuntimeException}s right away. All others are wrapped in
+     * {@link RuntimeException}s with the original exception as the cause.
+     *
+     * @param callable
+     *            the code to run
+     * @return the result of the callable if no exception was thrown
+     */
+    public static <T> T wrap(@NonNull final Callable<T> callable) {
         try {
             return callable.call();
         } catch (final RuntimeException e) {
@@ -38,7 +64,17 @@ public final class Exceptions {
         }
     }
 
-    public static void ignore(@NonNull final ThrowingRunnable runnable) {
+    /**
+     * Wrap thrown exceptions into a {@link RuntimeException}.
+     * <p>
+     * This method will catch all {@link Exception}s and re-throw
+     * {@link RuntimeException}s right away. All others are wrapped in
+     * {@link RuntimeException}s with the original exception as the cause.
+     *
+     * @param runnable
+     *            the code to run
+     */
+    public static void wrap(@NonNull final ThrowingRunnable runnable) {
         try {
             runnable.run();
         } catch (final RuntimeException e) {

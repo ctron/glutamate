@@ -12,9 +12,15 @@ package io.glutamate.util.function;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.function.Supplier;
+
 import org.eclipse.jdt.annotation.NonNullByDefault;
+import org.junit.Assert;
 import org.junit.Test;
 
+/**
+ * Unit test for {@link Suppliers}.
+ */
 @NonNullByDefault
 public class SuppliersTest {
 
@@ -57,5 +63,14 @@ public class SuppliersTest {
         assertEquals(0.0, Suppliers.constant(0.0).getAsDouble(), 0.01);
         assertEquals(0.1, Suppliers.constant(0.1).getAsDouble(), 0.01);
         assertEquals(Double.MAX_VALUE, Suppliers.constant(Double.MAX_VALUE).getAsDouble(), 1.0);
+    }
+
+    /**
+     * Test mapping Integers to Strings
+     */
+    @Test
+    public void testMapper1() {
+        final Supplier<String> s = Suppliers.map(Suppliers.constant((Integer) 42), v -> "Foo" + v);
+        Assert.assertEquals("Foo42", s.get());
     }
 }
