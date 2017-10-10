@@ -1,9 +1,9 @@
 
 # glutamate.io [![Build status](https://api.travis-ci.org/ctron/glutamate.svg)](https://travis-ci.org/ctron/glutamate) [![Maven Central](https://img.shields.io/maven-central/v/io.glutamate/glutamate.svg "Maven Central Status")](https://search.maven.org/#search%7Cgav%7C1%7Cg%3A%22io.glutamate%22%20AND%20a%3A%22glutamate%22)
 
-> Makes your code taste better. Overuse may cause headaches.
+… is a Java library providing scratches to a few itches.
 
-**glutamate.io** is a Java library providing scratches to a few itches.
+> Makes your code taste better. Overuse may cause headaches.
 
 ## Usage
 
