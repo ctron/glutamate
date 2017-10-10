@@ -25,12 +25,35 @@ public final class Exceptions {
     private Exceptions() {
     }
 
+    /**
+     * Create a consumer which will re-throw exceptions as
+     * {@link RuntimeException}s.
+     * <p>
+     * This method will catch all {@link Exception}s and re-throw
+     * {@link RuntimeException}s right away. All others are wrapped in
+     * {@link RuntimeException}s with the original exception as the cause.
+     *
+     * @param consumer
+     *            The consumer which may throw exceptions
+     * @return a consumer only throwing {@link RuntimeException}s
+     */
     public static <T> Consumer<T> wrap(@NonNull final ThrowingConsumer<T> consumer) {
         Objects.requireNonNull(consumer);
 
         return (value) -> wrap(() -> consumer.consume(value));
     }
 
+    /**
+     * Wrap thrown exceptions into a {@link RuntimeException}.
+     * <p>
+     * This method will catch all {@link Exception}s and re-throw
+     * {@link RuntimeException}s right away. All others are wrapped in
+     * {@link RuntimeException}s with the original exception as the cause.
+     *
+     * @param callable
+     *            the code to run
+     * @return the result of the callable if no exception was thrown
+     */
     public static <T> T wrap(@NonNull final Callable<T> callable) {
         try {
             return callable.call();
@@ -41,6 +64,16 @@ public final class Exceptions {
         }
     }
 
+    /**
+     * Wrap thrown exceptions into a {@link RuntimeException}.
+     * <p>
+     * This method will catch all {@link Exception}s and re-throw
+     * {@link RuntimeException}s right away. All others are wrapped in
+     * {@link RuntimeException}s with the original exception as the cause.
+     *
+     * @param runnable
+     *            the code to run
+     */
     public static void wrap(@NonNull final ThrowingRunnable runnable) {
         try {
             runnable.run();
