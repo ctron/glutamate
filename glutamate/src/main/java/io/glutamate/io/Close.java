@@ -13,6 +13,9 @@ package io.glutamate.io;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.Reader;
+import java.io.Writer;
+import java.nio.CharBuffer;
 import java.util.Objects;
 
 import org.eclipse.jdt.annotation.NonNull;
@@ -118,6 +121,134 @@ public final class Close {
         }
     }
 
+    private static final class ShieldedWriter extends Writer {
+
+        private final Writer writer;
+
+        public ShieldedWriter(final Writer writer) {
+            this.writer = writer;
+        }
+
+        @Override
+        public void write(final int c) throws IOException {
+            this.writer.write(c);
+        }
+
+        @Override
+        public void write(final char[] cbuf) throws IOException {
+            this.writer.write(cbuf);
+        }
+
+        @Override
+        public void write(final char[] cbuf, final int off, final int len) throws IOException {
+            this.writer.write(cbuf, off, len);
+        }
+
+        @Override
+        public void write(final String str) throws IOException {
+            this.writer.write(str);
+        }
+
+        @Override
+        public void write(final String str, final int off, final int len) throws IOException {
+            this.writer.write(str, off, len);
+        }
+
+        @Override
+        public Writer append(final CharSequence csq) throws IOException {
+            return this.writer.append(csq);
+        }
+
+        @Override
+        public Writer append(final CharSequence csq, final int start, final int end) throws IOException {
+            return this.writer.append(csq, start, end);
+        }
+
+        @Override
+        public Writer append(final char c) throws IOException {
+            return this.writer.append(c);
+        }
+
+        @Override
+        public void flush() throws IOException {
+            this.writer.flush();
+        }
+
+        @Override
+        public void close() throws IOException {
+        }
+
+        @Override
+        public String toString() {
+            return String.format("%s[shielding: %s]", super.toString(), this.writer);
+        }
+
+    }
+
+    private static final class ShieldedReader extends Reader {
+
+        private final Reader reader;
+
+        public ShieldedReader(final Reader reader) {
+            this.reader = reader;
+        }
+
+        @Override
+        public int read(final CharBuffer target) throws IOException {
+            return this.reader.read(target);
+        }
+
+        @Override
+        public int read() throws IOException {
+            return this.reader.read();
+        }
+
+        @Override
+        public int read(final char[] cbuf) throws IOException {
+            return this.reader.read(cbuf);
+        }
+
+        @Override
+        public int read(final char[] cbuf, final int off, final int len) throws IOException {
+            return this.reader.read(cbuf, off, len);
+        }
+
+        @Override
+        public long skip(final long n) throws IOException {
+            return this.reader.skip(n);
+        }
+
+        @Override
+        public boolean ready() throws IOException {
+            return this.reader.ready();
+        }
+
+        @Override
+        public boolean markSupported() {
+            return this.reader.markSupported();
+        }
+
+        @Override
+        public void mark(final int readAheadLimit) throws IOException {
+            this.reader.mark(readAheadLimit);
+        }
+
+        @Override
+        public void reset() throws IOException {
+            this.reader.reset();
+        }
+
+        @Override
+        public void close() throws IOException {
+        }
+
+        @Override
+        public String toString() {
+            return String.format("%s[shielding: %s]", super.toString(), this.reader);
+        }
+
+    }
+
     private Close() {
     }
 
@@ -145,5 +276,31 @@ public final class Close {
     public static InputStream shield(@NonNull final InputStream stream) {
         Objects.requireNonNull(stream);
         return new ShieldedInputStream(stream);
+    }
+
+    /**
+     * Shields the writer from being closed.
+     *
+     * @param writer
+     *            to shield
+     * @return A new writer which forwards calls to the input writer, except for the
+     *         {@link AutoCloseable#close()} call
+     */
+    public static Writer shield(@NonNull final Writer writer) {
+        Objects.requireNonNull(writer);
+        return new ShieldedWriter(writer);
+    }
+
+    /**
+     * Shields the reader from being closed.
+     *
+     * @param reader
+     *            to shield
+     * @return A new reader which forwards calls to the input reader, except for the
+     *         {@link AutoCloseable#close()} call
+     */
+    public static Reader shield(@NonNull final Reader reader) {
+        Objects.requireNonNull(reader);
+        return new ShieldedReader(reader);
     }
 }
