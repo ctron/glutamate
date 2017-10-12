@@ -17,6 +17,11 @@ import java.util.function.Function;
 import org.eclipse.jdt.annotation.NonNullByDefault;
 import org.eclipse.jdt.annotation.Nullable;
 
+/**
+ *
+ * @param <X>
+ *            Exception type which is thrown
+ */
 @NonNullByDefault
 public final class Suppress<X extends Exception> implements AutoCloseable {
 
