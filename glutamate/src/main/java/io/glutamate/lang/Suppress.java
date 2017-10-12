@@ -10,10 +10,12 @@
  *******************************************************************************/
 package io.glutamate.lang;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Objects;
 import java.util.function.Function;
 
+import org.eclipse.jdt.annotation.NonNull;
 import org.eclipse.jdt.annotation.NonNullByDefault;
 import org.eclipse.jdt.annotation.Nullable;
 
@@ -68,6 +70,12 @@ public final class Suppress<X extends Exception> implements AutoCloseable {
         throw result;
     }
 
+    /**
+     * Run code and suppress exceptions
+     *
+     * @param runnable
+     *            the runnable to run
+     */
     public void run(final ThrowingRunnable runnable) {
         try {
             runnable.run();
@@ -76,10 +84,40 @@ public final class Suppress<X extends Exception> implements AutoCloseable {
         }
     }
 
+    /**
+     * Close a resource and suppress exceptions
+     *
+     * @param closeable
+     *            the closable to close
+     */
     public void close(final AutoCloseable closeable) {
         Objects.requireNonNull(closeable);
 
         run(() -> closeable.close());
+    }
+
+    /**
+     * Close a resource and suppress exceptions
+     *
+     * @param closeables
+     *            the closable to close
+     */
+    public void close(final Iterable<? extends AutoCloseable> closeables) {
+        Objects.requireNonNull(closeables);
+
+        closeables.forEach(this::close);
+    }
+
+    /**
+     * Close a resource and suppress exceptions
+     *
+     * @param closeables
+     *            the closable to close
+     */
+    public void close(final @NonNull AutoCloseable... closeables) {
+        Objects.requireNonNull(closeables);
+
+        Arrays.stream(closeables).forEach(this::close);
     }
 
     public static <X extends Exception> Suppress<X> of(final Class<X> clazz,
