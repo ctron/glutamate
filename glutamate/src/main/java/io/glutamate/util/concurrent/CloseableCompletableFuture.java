@@ -37,7 +37,7 @@ public class CloseableCompletableFuture<T> extends CompletableFuture<T> implemen
     private final AtomicReference<Entry> closing = new AtomicReference<>();
 
     @Override
-    public CloseableCompletableFuture<T> toCompletableFuture() {
+    public @NonNull CloseableCompletableFuture<T> toCompletableFuture() {
         return this;
     }
 
@@ -47,7 +47,7 @@ public class CloseableCompletableFuture<T> extends CompletableFuture<T> implemen
      * @param runnable
      *            The code to run
      */
-    public void whenClosed(final Runnable runnable) {
+    public void whenClosed(@NonNull final Runnable runnable) {
         Objects.requireNonNull(runnable);
 
         final Entry next = new Entry();

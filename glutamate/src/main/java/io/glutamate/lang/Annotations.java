@@ -49,7 +49,7 @@ public final class Annotations {
      * @return The annotation, if found, never returns {@code null}, but may return
      *         {@link Optional#empty()}.
      */
-    public static <A extends Annotation> Optional<A> scanFor(
+    public static <A extends Annotation> @NonNull Optional<A> scanFor(
             @NonNull final Class<A> annotationClazz,
             @NonNull final Class<?> clazz,
             @NonNull final ScanMode mode) {
@@ -74,7 +74,7 @@ public final class Annotations {
      *         {@link Optional#empty()}.
      *
      */
-    public static <A extends Annotation> Optional<A> scanForDepthFirst(
+    public static <A extends Annotation> @NonNull Optional<A> scanForDepthFirst(
             @NonNull final Class<A> annotationClazz,
             @NonNull final Class<?> clazz) {
         Objects.requireNonNull(clazz);
@@ -120,7 +120,7 @@ public final class Annotations {
      *         {@link Optional#empty()}.
      *
      */
-    public static <A extends Annotation> Optional<A> scanForBreadthFirst(
+    public static <A extends Annotation> @NonNull Optional<A> scanForBreadthFirst(
             @NonNull final Class<A> annotationClazz,
             @NonNull final Class<?> clazz) {
         Objects.requireNonNull(clazz);

@@ -12,15 +12,19 @@ package io.glutamate.lang;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 import java.util.concurrent.Callable;
 import java.util.function.Consumer;
 
-import org.eclipse.jdt.annotation.NonNull;
+import org.eclipse.jdt.annotation.NonNullByDefault;
+import org.eclipse.jdt.annotation.Nullable;
 
 /**
  * Helper for working with exceptions
  */
+@NonNullByDefault
 public final class Exceptions {
     private Exceptions() {
     }
@@ -37,7 +41,7 @@ public final class Exceptions {
      *            The consumer which may throw exceptions
      * @return a consumer only throwing {@link RuntimeException}s
      */
-    public static <T> Consumer<T> wrap(@NonNull final ThrowingConsumer<T> consumer) {
+    public static <T> Consumer<T> wrap(final ThrowingConsumer<T> consumer) {
         Objects.requireNonNull(consumer);
 
         return (value) -> wrap(() -> consumer.consume(value));
@@ -54,7 +58,7 @@ public final class Exceptions {
      *            the code to run
      * @return the result of the callable if no exception was thrown
      */
-    public static <T> T wrap(@NonNull final Callable<T> callable) {
+    public static <T> T wrap(final Callable<T> callable) {
         try {
             return callable.call();
         } catch (final RuntimeException e) {
@@ -74,7 +78,7 @@ public final class Exceptions {
      * @param runnable
      *            the code to run
      */
-    public static void wrap(@NonNull final ThrowingRunnable runnable) {
+    public static void wrap(final ThrowingRunnable runnable) {
         try {
             runnable.run();
         } catch (final RuntimeException e) {
@@ -92,16 +96,22 @@ public final class Exceptions {
      * @return the root cause, or the exception itself if it doesn't have a root
      *         cause, returns {@code null} only when the input was {@code null}
      */
-    public static Throwable getCause(Throwable error) {
-        if (error == null) {
-            return null;
-        }
+    public static @Nullable Throwable getCause(@Nullable Throwable error) {
 
-        while (error.getCause() != null && error.getCause() != error) {
+        Throwable last = error;
+
+        final Set<Throwable> causes = new HashSet<>();
+
+        while (error != null) {
+            if (!causes.add(error)) {
+                break;
+            }
+
+            last = error;
             error = error.getCause();
         }
 
-        return error;
+        return last;
     }
 
     /**
@@ -116,7 +126,7 @@ public final class Exceptions {
      *         input was {@code null}
      */
 
-    public static String getCauseMessage(final Throwable error) {
+    public static @Nullable String getCauseMessage(@Nullable final Throwable error) {
         return getMessage(getCause(error));
     }
 
@@ -128,7 +138,7 @@ public final class Exceptions {
      * @return The message or alternatively the class name, returns {@code null}
      *         only when the input was {@code null}
      */
-    public static String getMessage(final Throwable error) {
+    public static @Nullable String getMessage(@Nullable final Throwable error) {
         if (error == null) {
             return null;
         }
@@ -163,7 +173,7 @@ public final class Exceptions {
      *            the error to format
      * @return the formatted exception, {@code null} if the input was {@code null}
      */
-    public static String toString(final Throwable error) {
+    public static @Nullable String toString(@Nullable final Throwable error) {
         if (error == null) {
             return null;
         }
