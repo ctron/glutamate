@@ -36,7 +36,7 @@ public final class Optionals {
      *         is not present and the second value is {@code null}. Any other case
      *         returns {@code false}.
      */
-    public static boolean presentAndEqual(final @Nullable Optional<?> first, final @Nullable Object second) {
+    public static boolean presentAndEqual(final @NonNull Optional<?> first, final @Nullable Object second) {
         Objects.requireNonNull(first);
 
         if (!first.isPresent()) {
