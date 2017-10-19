@@ -33,6 +33,9 @@ public interface ThrowingConsumer<T> {
     /**
      * Get a no-op consumer.
      *
+     * @param <T>
+     *            The value type of the consumer
+     * 
      * @return A no-op consumer
      */
     public static <T> @NonNull ThrowingConsumer<T> empty() {

@@ -46,6 +46,8 @@ public final class Annotations {
      *            The class to scan on
      * @param mode
      *            The scan mode
+     * @param <A>
+     *            The type of the annotation
      * @return The annotation, if found, never returns {@code null}, but may return
      *         {@link Optional#empty()}.
      */
@@ -70,6 +72,8 @@ public final class Annotations {
      *            The annotation to scan for
      * @param clazz
      *            The class to scan on
+     * @param <A>
+     *            The type of the annotation
      * @return The annotation, if found, never returns {@code null}, but may return
      *         {@link Optional#empty()}.
      *
@@ -116,6 +120,8 @@ public final class Annotations {
      *            The annotation to scan for
      * @param clazz
      *            The class to scan on
+     * @param <A>
+     *            The type of the annotation
      * @return The annotation, if found, never returns {@code null}, but may return
      *         {@link Optional#empty()}.
      *

@@ -43,6 +43,8 @@ public final class Await {
      * @param milliseconds
      *            The number of milliseconds to wait for. If the value is negative
      *            or zero it will be an infinite wait.
+     * @param <T>
+     *            the type of the result
      * @return the result of the completion stage
      */
     public static <T> T await(final CompletionStage<T> stage, final long milliseconds) {
@@ -78,6 +80,8 @@ public final class Await {
      *            will wait forever. The method will use the absolute value of the
      *            duration, so negative durations will be converted into positive
      *            durations.
+     * @param <T>
+     *            the type of the result
      * @return the result of the completion stage
      */
     public static <T> T await(final CompletionStage<T> stage, @Nullable final Duration duration) {

@@ -39,6 +39,8 @@ public final class Exceptions {
      *
      * @param consumer
      *            The consumer which may throw exceptions
+     * @param <T>
+     *            type return type
      * @return a consumer only throwing {@link RuntimeException}s
      */
     public static <T> Consumer<T> wrap(final ThrowingConsumer<T> consumer) {
@@ -56,6 +58,8 @@ public final class Exceptions {
      *
      * @param callable
      *            the code to run
+     * @param <T>
+     *            type return type
      * @return the result of the callable if no exception was thrown
      */
     public static <T> T wrap(final Callable<T> callable) {
