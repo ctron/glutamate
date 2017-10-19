@@ -27,7 +27,10 @@ import io.glutamate.lang.ThrowingRunnable;
  * method.
  * <p>
  * Assume you have a class hierarchy like this, where the init method must be
- * called, but cannot be called in the constructor of A: <code><pre>
+ * called, but cannot be called in the constructor of A:
+ *
+ * <pre>
+ * <code>
  * class A {
  *   public A () {
  *   }
@@ -40,7 +43,8 @@ import io.glutamate.lang.ThrowingRunnable;
  *     super();
  *   }
  * }
- * </pre></code>
+ * </code>
+ * </pre>
  *
  * Ideally "init" would be a public method called "start" or "open" and be
  * called explicitly from outside the class instance. Alternatively it would be
@@ -48,7 +52,10 @@ import io.glutamate.lang.ThrowingRunnable;
  * However that requires that B has the knowledge about this call flow and also
  * if a new layer C would be introduced that approach might fail.
  * <p>
- * This class helps solving this by introducing a kind of handle: <code><pre>
+ * This class helps solving this by introducing a kind of handle:
+ * 
+ * <pre>
+ * <code>
  * class A {
  *   protected A ( Ready ready ) {
  *     ready.whenReady(this::init);
@@ -68,7 +75,8 @@ import io.glutamate.lang.ThrowingRunnable;
  *   }
  *   private void init2() {}
  * }
- * </pre></code>
+ * </code>
+ * </pre>
  * <p>
  * The contract of Ready is:
  * <ul>
