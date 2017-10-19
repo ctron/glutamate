@@ -15,6 +15,7 @@ import java.util.List;
 
 import org.eclipse.jdt.annotation.NonNullByDefault;
 
+import io.glutamate.annotations.Experimental;
 import io.glutamate.lang.Exceptions;
 import io.glutamate.lang.ThrowingRunnable;
 
@@ -79,9 +80,9 @@ import io.glutamate.lang.ThrowingRunnable;
  * {@link #ready()}
  * </ul>
  *
- * @experimental This is experimental
  */
 @NonNullByDefault
+@Experimental
 public final class Ready {
 
     private final List<ThrowingRunnable> actions = new LinkedList<>();
