@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2017 Red Hat Inc and others.
+ * Copyright (c) 2017, 2018 Red Hat Inc and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -53,7 +53,7 @@ import io.glutamate.lang.ThrowingRunnable;
  * if a new layer C would be introduced that approach might fail.
  * <p>
  * This class helps solving this by introducing a kind of handle:
- * 
+ *
  * <pre>
  * <code>
  * class A {
@@ -93,7 +93,7 @@ import io.glutamate.lang.ThrowingRunnable;
 @Experimental
 public final class Ready {
 
-    private final List<ThrowingRunnable> actions = new LinkedList<>();
+    private final List<ThrowingRunnable<? extends Exception>> actions = new LinkedList<>();
     private int counter;
 
     private Ready(final int counter) {
@@ -111,7 +111,7 @@ public final class Ready {
     }
 
     private void run() {
-        for (final ThrowingRunnable runnable : this.actions) {
+        for (final ThrowingRunnable<? extends Exception> runnable : this.actions) {
             Exceptions.wrap(runnable);
         }
     }
@@ -122,7 +122,7 @@ public final class Ready {
      * @param runnable
      *            the runnable to execute
      */
-    public void whenReady(final ThrowingRunnable runnable) {
+    public void whenReady(final ThrowingRunnable<? extends Exception> runnable) {
         if (this.counter == 0) {
             throw new IllegalStateException();
         }

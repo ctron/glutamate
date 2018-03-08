@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2017 Red Hat Inc and others.
+ * Copyright (c) 2017, 2018 Red Hat Inc and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -27,6 +27,9 @@ import org.eclipse.jdt.annotation.Nullable;
  */
 @NonNullByDefault
 public final class Suppliers {
+
+    private static final Supplier<?> NULL_SUPPLIER = () -> null;
+
     private Suppliers() {
     }
 
@@ -133,6 +136,7 @@ public final class Suppliers {
      *
      * @return a new supplier providing UUIDs
      */
+    @SuppressWarnings("null")
     public static Supplier<UUID> uuid() {
         return () -> UUID.randomUUID();
     }
@@ -144,8 +148,22 @@ public final class Suppliers {
      *
      * @return a new supplier providing UUIDs
      */
+    @SuppressWarnings("null")
     public static Supplier<String> uuidString() {
         return () -> UUID.randomUUID().toString();
+    }
+
+    /**
+     * Create a new supplier returning {@code null}.
+     *
+     * @param <T>
+     *            The type of the supplier
+     *
+     * @return A new supplier always returning {@code null}
+     */
+    @SuppressWarnings("unchecked")
+    public static <@Nullable T> Supplier<T> empty() {
+        return (Supplier<@Nullable T>) NULL_SUPPLIER;
     }
 
 }

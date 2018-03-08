@@ -15,6 +15,7 @@ import static org.junit.Assert.assertEquals;
 import java.util.function.Supplier;
 
 import org.eclipse.jdt.annotation.NonNullByDefault;
+import org.eclipse.jdt.annotation.Nullable;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -72,5 +73,20 @@ public class SuppliersTest {
     public void testMapper1() {
         final Supplier<String> s = Suppliers.map(Suppliers.constant((Integer) 42), v -> "Foo" + v);
         Assert.assertEquals("Foo42", s.get());
+    }
+
+    /**
+     * Testing {@link Suppliers#empty()}
+     */
+    @Test
+    public void testEmpty1() {
+        assertEmpty(Suppliers.empty());
+        SuppliersTest.<@Nullable String>assertEmpty(Suppliers.empty());
+    }
+
+    private static <T> void assertEmpty(final Supplier<T> supplier) {
+        Assert.assertNotNull(supplier);
+        Assert.assertNull(supplier.get()); // first attempt
+        Assert.assertNull(supplier.get()); // second attempt
     }
 }

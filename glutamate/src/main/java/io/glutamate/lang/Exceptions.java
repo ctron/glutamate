@@ -82,7 +82,7 @@ public final class Exceptions {
      * @param runnable
      *            the code to run
      */
-    public static void wrap(final ThrowingRunnable runnable) {
+    public static void wrap(final ThrowingRunnable<? extends Exception> runnable) {
         try {
             runnable.run();
         } catch (final RuntimeException e) {

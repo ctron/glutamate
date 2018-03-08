@@ -23,6 +23,7 @@ Head over to http://oss.sonatype.org/ and do the release
 
     git checkout master
     git merge <tag>
+    git push origin
     git checkout develop
 
 ## Upload the documentation
@@ -30,6 +31,7 @@ Head over to http://oss.sonatype.org/ and do the release
     git checkout <tag>
     # prepare and maybe modify site.xml
     mvn site:site site:stage
+    cd target/staging
     # upload
     git checkout develop
 
