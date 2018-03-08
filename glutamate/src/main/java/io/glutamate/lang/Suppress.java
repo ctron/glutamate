@@ -120,6 +120,15 @@ public final class Suppress<X extends Exception> implements AutoCloseable {
         Arrays.stream(closeables).forEach(this::close);
     }
 
+    /**
+     * Create a new instance for the provided exception type.
+     *
+     * @param clazz
+     *            The class of the exception
+     * @param exceptionCreator
+     *            The method to convert to that exception type
+     * @return the new instance, never returns {@code null}
+     */
     public static <X extends Exception> Suppress<X> of(final Class<X> clazz,
             final Function<Throwable, X> exceptionCreator) {
 
@@ -129,10 +138,20 @@ public final class Suppress<X extends Exception> implements AutoCloseable {
         return new Suppress<>(clazz, exceptionCreator);
     }
 
+    /**
+     * Create a new instance for {@link RuntimeException}.
+     *
+     * @return A new instance
+     */
     public static Suppress<RuntimeException> runtime() {
         return new Suppress<>(RuntimeException.class, RuntimeException::new);
     }
 
+    /**
+     * Create a new instance for {@link Exception}.
+     *
+     * @return A new instance
+     */
     public static Suppress<Exception> exception() {
         return new Suppress<>(Exception.class, Exception::new);
     }
