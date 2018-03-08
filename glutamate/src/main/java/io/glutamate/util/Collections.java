@@ -42,6 +42,11 @@ public final class Collections {
      *
      * @param initializer
      *            the initializer to call on the new map instance
+     * 
+     * @param <K>
+     *            The key type
+     * @param <V>
+     *            The value type
      * @return A new map instance
      */
     public static <K, V> Map<K, V> map(final Consumer<Map<K, V>> initializer) {

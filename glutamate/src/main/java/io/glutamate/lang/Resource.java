@@ -59,6 +59,10 @@ public final class Resource<T> implements AutoCloseable {
      *
      * @param resource
      *            The resource to wrap
+     *
+     * @param <T>
+     *            The type of the resource
+     *
      * @return A new resource instance
      */
     public static <T> Resource<T> use(final T resource) {
@@ -74,6 +78,10 @@ public final class Resource<T> implements AutoCloseable {
      *
      * @param closeable
      *            The closable to wrap.
+     *
+     * @param <T>
+     *            The type of the resource
+     *
      * @return A new resource instance
      */
     public static <T extends AutoCloseable> Resource<T> manage(final T closeable) {
@@ -91,6 +99,10 @@ public final class Resource<T> implements AutoCloseable {
      *            The resource to manage
      * @param closeHandler
      *            the code which will close the resource
+     *
+     * @param <T>
+     *            The type of the resource
+     *
      * @return A new resource instance
      */
     public static <T> Resource<T> manage(final T resource, final ThrowingConsumer<T> closeHandler) {
@@ -111,6 +123,10 @@ public final class Resource<T> implements AutoCloseable {
      *
      * @param resource
      *            The resource to manage
+     * 
+     * @param <T>
+     *            The type of the resource
+     * 
      * @return A new resource instance
      */
     public static <T extends ExecutorService> Resource<T> manage(final T resource) {
