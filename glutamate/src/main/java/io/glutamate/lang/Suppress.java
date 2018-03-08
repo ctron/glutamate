@@ -76,7 +76,7 @@ public final class Suppress<X extends Exception> implements AutoCloseable {
      * @param runnable
      *            the runnable to run
      */
-    public void run(final ThrowingRunnable runnable) {
+    public void run(final ThrowingRunnable<? extends Exception> runnable) {
         try {
             runnable.run();
         } catch (final Exception e) {

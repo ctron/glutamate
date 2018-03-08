@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2017, 2018 Red Hat Inc and others.
+ * Copyright (c) 2018 Red Hat Inc and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -11,18 +11,22 @@
 package io.glutamate.lang;
 
 /**
- * A runnable throwing an exception.
+ * A callable throwing an specified exception type.
  *
+ * @param <T>
+ *            The type of the return value
  * @param <X>
- *            The exception type this runnable might throw
+ *            The exception type this callable might throw
  */
 @FunctionalInterface
-public interface ThrowingRunnable<X extends Throwable> {
+public interface ThrowingCallable<T, X extends Throwable> {
     /**
-     * Run boy run
+     * Call me al
+     *
+     * @return The result
      *
      * @throws X
      *             if anything goes wrong
      */
-    public void run() throws X;
+    public T call() throws X;
 }
