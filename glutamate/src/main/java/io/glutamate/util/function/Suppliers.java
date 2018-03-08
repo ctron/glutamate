@@ -156,6 +156,9 @@ public final class Suppliers {
     /**
      * Create a new supplier returning {@code null}.
      *
+     * @param <T>
+     *            The type of the supplier
+     *
      * @return A new supplier always returning {@code null}
      */
     @SuppressWarnings("unchecked")

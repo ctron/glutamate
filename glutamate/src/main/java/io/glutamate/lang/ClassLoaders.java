@@ -35,6 +35,12 @@ public final class ClassLoaders {
      *            The class loader to set, may be {@code null}
      * @param callable
      *            the callable to execute
+     *
+     * @param <T>
+     *            The return type
+     * @param <X>
+     *            The exception type
+     *
      * @return The result of the callable
      * @throws X
      *             The exception type of the callable
@@ -62,6 +68,10 @@ public final class ClassLoaders {
      *            The class to get the class loader from. May be {@code null}.
      * @param callable
      *            the callable to execute
+     * @param <T>
+     *            The return type
+     * @param <X>
+     *            The exception type
      * @return The result of the callable
      * @throws X
      *             The exception type of the callable
@@ -79,6 +89,10 @@ public final class ClassLoaders {
      *            The class loader to set, may be {@code null}
      * @param runnable
      *            the runnable to execute
+     *
+     * @param <X>
+     *            The exception type
+     *
      * @throws X
      *             The exception type of the callable
      */
@@ -100,6 +114,10 @@ public final class ClassLoaders {
      *            The class to get the class loader from. May be {@code null}.
      * @param runnable
      *            the runnable to execute
+     * 
+     * @param <X>
+     *            The exception type
+     * 
      * @throws X
      *             The exception type of the callable
      */
