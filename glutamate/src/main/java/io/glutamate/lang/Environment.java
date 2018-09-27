@@ -31,7 +31,8 @@ public final class Environment {
     /**
      * Get the value of an environment variable.
      *
-     * @param name The name of the variable to get.
+     * @param name
+     *            The name of the variable to get.
      * @return The optional value of the value.
      */
     public static Optional<@Nullable String> get(final String name) {
@@ -43,9 +44,11 @@ public final class Environment {
     /**
      * Get a required value, or fail with an exception.
      *
-     * @param name The name of the variable to get.
+     * @param name
+     *            The name of the variable to get.
      * @return The value of the environment variable, never returns {@code null}.
-     * @throws IllegalArgumentException If the environment variable is unset.
+     * @throws IllegalArgumentException
+     *             If the environment variable is unset.
      */
     public static String getRequired(final String name) {
         @SuppressWarnings("null")
@@ -58,8 +61,10 @@ public final class Environment {
     /**
      * Get an environment variable converted to a type.
      *
-     * @param name      The name of the variable to get.
-     * @param converter The converter to apply.
+     * @param name
+     *            The name of the variable to get.
+     * @param converter
+     *            The converter to apply.
      * @return The optional value of the variable, converted to the target type.
      */
     public static <@Nullable T> Optional<T> getAs(final String name, final Function<String, T> converter) {
@@ -73,9 +78,12 @@ public final class Environment {
     /**
      * Get an environment variable converted to a type.
      *
-     * @param name         The name of the variable to get.
-     * @param defaultValue The default value.
-     * @param converter    The converter to apply.
+     * @param name
+     *            The name of the variable to get.
+     * @param defaultValue
+     *            The default value.
+     * @param converter
+     *            The converter to apply.
      * @return The value of the variable, converted to the target type, or the
      *         default value.
      */
@@ -88,9 +96,12 @@ public final class Environment {
     /**
      * Consume an environment variable, converted to a type.
      *
-     * @param name      The name of the variable to consume.
-     * @param converter The converter to apply.
-     * @param consumer  The consumer which will be called if the value is set.
+     * @param name
+     *            The name of the variable to consume.
+     * @param converter
+     *            The converter to apply.
+     * @param consumer
+     *            The consumer which will be called if the value is set.
      */
     public static <@Nullable T> void consumeAs(final String name, final Function<String, T> converter,
             final Consumer<T> consumer) {
@@ -105,8 +116,10 @@ public final class Environment {
      * {@link Boolean#parseBoolean(String)} returns {@code true}.
      * </p>
      *
-     * @param name     The name of the variable to test.
-     * @param runnable The runnable to call if the variable is "true".
+     * @param name
+     *            The name of the variable to test.
+     * @param runnable
+     *            The runnable to call if the variable is "true".
      */
     public static void is(final String name, final Runnable runnable) {
         if (Boolean.TRUE.equals(getAs(name, false, Boolean::parseBoolean))) {
