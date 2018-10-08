@@ -65,6 +65,8 @@ public final class Environment {
      *            The name of the variable to get.
      * @param converter
      *            The converter to apply.
+     * @param <T>
+     *            The type to convert to
      * @return The optional value of the variable, converted to the target type.
      */
     public static <@Nullable T> Optional<T> getAs(final String name, final Function<String, T> converter) {
@@ -84,6 +86,8 @@ public final class Environment {
      *            The default value.
      * @param converter
      *            The converter to apply.
+     * @param <T>
+     *            The type to convert to
      * @return The value of the variable, converted to the target type, or the
      *         default value.
      */
@@ -100,6 +104,8 @@ public final class Environment {
      *            The name of the variable to consume.
      * @param converter
      *            The converter to apply.
+     * @param <T>
+     *            The type to convert to
      * @param consumer
      *            The consumer which will be called if the value is set.
      */

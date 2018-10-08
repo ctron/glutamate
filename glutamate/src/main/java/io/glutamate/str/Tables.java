@@ -37,7 +37,11 @@ public final class Tables {
      *            the data, in rows and cells
      * @param gap
      *            gap between columns
+     * @param <T>
+     *            The type of the appendable
      * @return returns the provided appendable
+     * @throws IOException
+     *             In case the appendable throws an {@link IOException}
      */
     public static <T extends Appendable> T showTable(@NonNull final T appendable, final @NonNull List<String> header,
             final List<List<String>> data, int gap) throws IOException {

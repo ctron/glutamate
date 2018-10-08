@@ -127,6 +127,8 @@ public final class Suppress<X extends Exception> implements AutoCloseable {
      *            The class of the exception
      * @param exceptionCreator
      *            The method to convert to that exception type
+     * @param <X>
+     *            Type of the exception that might be thrown
      * @return the new instance, never returns {@code null}
      */
     public static <X extends Exception> Suppress<X> of(final Class<X> clazz,
