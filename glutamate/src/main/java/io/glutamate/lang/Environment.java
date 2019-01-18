@@ -128,9 +128,26 @@ public final class Environment {
      *            The runnable to call if the variable is "true".
      */
     public static void is(final String name, final Runnable runnable) {
-        if (Boolean.TRUE.equals(getAs(name, false, Boolean::parseBoolean))) {
+        if (is(name)) {
             runnable.run();
         }
+    }
+
+    /**
+     * Test if an environment variable is "true".
+     *
+     * <p>
+     * An environment variable is considered "true" if it is set and
+     * {@link Boolean#parseBoolean(String)} returns {@code true}.
+     * </p>
+     *
+     * @param name
+     *            The name of the variable to test.
+     * @return {@code true} if the variable is present and parsed to {@code true} by
+     *         {@link Boolean#parseBoolean(String)}, {@code false} otherwise.
+     */
+    public static boolean is(final String name) {
+        return Boolean.TRUE.equals(getAs(name, false, Boolean::parseBoolean));
     }
 
 }
